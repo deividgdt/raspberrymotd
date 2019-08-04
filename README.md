@@ -1,5 +1,5 @@
 # RaspberryMOTD
 
-![](motdpi.PNG)
+![](motdpi.jpeg)
 
 A custom Message Of The Day for Raspberry
