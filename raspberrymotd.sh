@@ -1,19 +1,20 @@
 #!/bin/bash
 ################  MOTD FOR RASPBERRY  ####################
 ###############  github.com/deividgdt  ###################
+#####################  Version 2.0 #######################
 ##########################################################
 
 RED='\e[31m'
 GREEN='\e[32m'
 NOCOL='\e[0m'
-UP=`uptime --pretty`
-CPUSAGE=`cat /proc/loadavg | awk '{print "1 minute: "$1"/ 5 minutes: "$2"/ 15 minutes: "$3}'`
-TOTALMEM=`awk 'NR==1 {printf "%0.0f MB",$2/1024}' /proc/meminfo`
-AVAIMEM=`awk 'NR==3 {printf "%0.0f MB",$2/1024}' /proc/meminfo`
-DISKUSAGE=`df --human-readable | grep --extended-regexp "/$" | awk '{print $4"/"$2" Used: "$5}'`
-NETDEV=`ip route get 8.8.8.8 | head --lines=1 | awk '{print $5}'`
-IPADDR=`ip -oneline -family inet address show | grep ${NETDEV} | awk '{print $4}'| cut --fields=1 --delimiter="/"`
-TEMP=`/opt/vc/bin/vcgencmd measure_temp | cut --fields=2 --delimiter="="`
+UP=$(uptime --pretty)
+CPUSAGE=$(cat /proc/loadavg | awk '{print "1 minute: "$1"/ 5 minutes: "$2"/ 15 minutes: "$3}')
+TOTALMEM=$(awk 'NR==1 {printf "%0.0f MB",$2/1024}' /proc/meminfo)
+AVAIMEM=$(awk 'NR==3 {printf "%0.0f MB",$2/1024}' /proc/meminfo)
+DISKUSAGE=$(df --human-readable | grep --extended-regexp "/$" | awk '{print $4"/"$2" Used: "$5}')
+NETDEV=$(ip route get 8.8.8.8 | head --lines=1 | awk '{print $5}')
+IPADDR=$(ip -oneline -family inet address show | grep ${NETDEV} | awk '{print $4}'| cut --fields=1 --delimiter="/")
+TEMP=$(/usr/bin/vcgencmd measure_temp | cut --fields=2 --delimiter="=")
 
 
 echo -e "         ${GREEN}.-::--.       .-:::-."
@@ -36,7 +37,7 @@ echo -e "        -oo/::yyysooooyy+::+o:"
 echo -e "           :+yy+      .syo/."
 echo -e "              ./o+//+o+-"
 echo -e "                  ...\n${NOCOL}"
-echo -e "     System-------> `uname -snrvm`"
+echo -e "     System-------> $(uname -snrvm)"
 echo -e "     Up Time------> ${UP}"
 echo -e "     CPU Usage----> ${CPUSAGE}"
 echo -e "     RAM Usage----> Free RAM: ${AVAIMEM} of ${TOTALMEM}"
